@@ -1,0 +1,67 @@
+//Part1
+extern void object::Year2015Day2Part1()
+{
+	ipf(10000);
+	file handle();
+	handle.open("2015Day2.txt", "r");
+	string text;
+	int count = 0;
+	while(!handle.eof())
+	{
+		text = handle.readln();
+		count += box(text);
+	}
+	handle.close();
+	message(count);
+}
+
+int box(string text)
+{
+	int len = strlen(text);
+	int pos = strfind(text, "x");
+	int first = strval(strleft(text, pos));
+	text = strright(text, len - pos - 1);
+	pos = strfind(text, "x");
+	len = strlen(text);
+	int second = strval(strleft(text, pos));
+	int third = strval(strright(text, len - pos - 1));
+	int count = 2*first*second + 2*first*third + 2*second*third;
+	if(first >= second && first >= third) count += second*third;
+	else if(second >= first && second >= third) count += first*third;
+	else count += first*second;
+	return count;
+}
+
+//Part2
+extern void object::Year2015Day2Part2()
+{
+	ipf(10000);
+	file handle();
+	handle.open("2015Day2.txt", "r");
+	string text;
+	int count = 0;
+	while(!handle.eof())
+	{
+		text = handle.readln();
+		count += box(text);
+	}
+	handle.close();
+	message(count);
+}
+
+int box(string text)
+{
+	int len = strlen(text);
+	int pos = strfind(text, "x");
+	int first = strval(strleft(text, pos));
+	text = strright(text, len - pos - 1);
+	pos = strfind(text, "x");
+	len = strlen(text);
+	int second = strval(strleft(text, pos));
+	int third = strval(strright(text, len - pos - 1));
+	int count = first*second*third;
+	if(first >= second && first >= third) count += 2*second + 2*third;
+	else if(second >= first && second >= third) count += 2*first + 2*third;
+	else count += 2*first + 2*second;
+	return count;
+}
