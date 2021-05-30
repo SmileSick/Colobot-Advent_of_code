@@ -1,0 +1,70 @@
+public class point2d
+{
+	int x, y;
+	void point2d(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+}
+public class perso
+{
+	point2d pos = new point2d(0, 0);
+	
+	void up()
+	{
+		pos.y++;
+	}
+	void down()
+	{
+		pos.y--;
+	}
+	void right()
+	{
+		pos.x++;
+	}
+	void left()
+	{
+		pos.x--;
+	}
+}
+extern void object::Year2015Day3()
+{
+	int num = 2 // change for number of people
+	ipf(10000);
+	file handle();
+	handle.open("2015Day3.txt", "r");
+	string text = handle.readln();
+	handle.close();
+	perso men[];
+	for(int i = 0; i < num; i++)
+	{
+		men[i] = new perso();
+	}
+	point2d arr[];
+	int mass = 0;
+	arr[mass++] = new point2d(men[0].pos.x, men[0].pos.y);
+	int counttext = strlen(text);
+	string temptext;
+	for(int i = 0; i < counttext; i++)
+	{
+		temptext = strmid(text, i, 1);
+		if(temptext == "<") men[i%num].left();
+		else if(temptext == ">") men[i%num].right();
+		else if(temptext == "^") men[i%num].up();
+		else if(temptext == "v") men[i%num].down();
+		if(!find(men[i%num].pos, arr)) arr[mass++] = new point2d(men[i%num].pos.x, men[i%num].pos.y);
+	}
+	message(sizeof(arr));
+}
+
+bool find(point2d pos, point2d []arr)
+{
+	ipf(10000);
+	int size = sizeof(arr);
+	for(int i = 0; i < size; i++)
+	{
+		if(pos.x == arr[i].x && pos.y == arr[i].y) return true;
+	}
+	return false;
+}
