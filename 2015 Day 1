@@ -1,10 +1,11 @@
-//Part1
-extern void object::Year2015Day1Part1()
+extern void object::AoD_2015_01()
 {
 	ipf(10000);
-	int floors = 0;
+	int part1 = 0;
+	int part2;
+	bool check = true;
 	file handle();
-	handle.open("2015Day1.txt", "r");
+	handle.open("input.txt", "r");
 	string text = handle.readln();
 	handle.close();
 	int count = strlen(text);
@@ -12,30 +13,13 @@ extern void object::Year2015Day1Part1()
 	for(int i = 0; i < count; i++)
 	{
 		temptext = strmid(text, i, 1);
-		if(temptext == "(") floors++;
-		if(temptext == ")") floors--;
+		if(temptext == "(") part1++;
+		if(temptext == ")") part1--;
+		if(part1 == -1 && check)
+		{
+			part2 = i + 1;
+			check = false;
+		}
 	}
-	message(floors);
-}
-
-//Part2
-extern void object::Year2015Day1Part2()
-{
-	ipf(10000);
-	int floors = 0;
-	file handle();
-	handle.open("2015Day1.txt", "r");
-	string text = handle.readln();
-	handle.close();
-	int count = strlen(text);
-	string temptext;
-	int i;
-	for(i = 0; i < count; i++)
-	{
-		temptext = strmid(text, i, 1);
-		if(temptext == "(") floors++;
-		if(temptext == ")") floors--;
-		if(floors == -1) break;
-	}
-	message(i + 1);
+	message("Part1: " + part1 + ", Part2: " + part2);
 }
