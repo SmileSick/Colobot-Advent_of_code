@@ -28,12 +28,12 @@ public class perso
 		pos.x--;
 	}
 }
-extern void object::Year2015Day3()
+extern void object::AoD_2015_03()
 {
-	int num = 2 // change for number of people
+	int num = 2; // change for number of people
 	ipf(10000);
 	file handle();
-	handle.open("2015Day3.txt", "r");
+	handle.open("input.txt", "r");
 	string text = handle.readln();
 	handle.close();
 	perso men[];
