@@ -1,67 +1,48 @@
-//Part1
-extern void object::Year2015Day2Part1()
+extern void object::AoD_2015_02()
 {
 	ipf(10000);
 	file handle();
-	handle.open("2015Day2.txt", "r");
+	handle.open("input.txt", "r");
 	string text;
-	int count = 0;
+	int part1 = 0;
+	int part2 = 0;
+	int arr[3];
 	while(!handle.eof())
 	{
 		text = handle.readln();
-		count += box(text);
+		arr = cut(text);
+		part1 += 2*(arr[0]*arr[1] + arr[0]*arr[2] + arr[1]*arr[2]);
+		part2 += arr[0]*arr[1]*arr[2];
+		if(arr[0] >= arr[1] && arr[0] >= arr[2])
+		{
+			part1 += arr[1]*arr[2];
+			part2 += 2*(arr[1] + arr[2]);
+		}
+		else if(arr[1] >= arr[0] && arr[1] >= arr[2])
+		{
+			part1 += arr[0]*arr[2];
+			part2 += 2*(arr[0] + arr[2]);
+		}
+		else
+		{
+			part1 += arr[0]*arr[1];
+			part2 += 2*(arr[0] + arr[1]);
+		}
 	}
 	handle.close();
-	message(count);
+	message("Part1: " + part1 + ", part2: " + part2);
 }
 
-int box(string text)
+int []cut(string text)
 {
+	int arr[3];
 	int len = strlen(text);
 	int pos = strfind(text, "x");
-	int first = strval(strleft(text, pos));
+	arr[0] = strval(strleft(text, pos));
 	text = strright(text, len - pos - 1);
 	pos = strfind(text, "x");
 	len = strlen(text);
-	int second = strval(strleft(text, pos));
-	int third = strval(strright(text, len - pos - 1));
-	int count = 2*first*second + 2*first*third + 2*second*third;
-	if(first >= second && first >= third) count += second*third;
-	else if(second >= first && second >= third) count += first*third;
-	else count += first*second;
-	return count;
-}
-
-//Part2
-extern void object::Year2015Day2Part2()
-{
-	ipf(10000);
-	file handle();
-	handle.open("2015Day2.txt", "r");
-	string text;
-	int count = 0;
-	while(!handle.eof())
-	{
-		text = handle.readln();
-		count += box(text);
-	}
-	handle.close();
-	message(count);
-}
-
-int box(string text)
-{
-	int len = strlen(text);
-	int pos = strfind(text, "x");
-	int first = strval(strleft(text, pos));
-	text = strright(text, len - pos - 1);
-	pos = strfind(text, "x");
-	len = strlen(text);
-	int second = strval(strleft(text, pos));
-	int third = strval(strright(text, len - pos - 1));
-	int count = first*second*third;
-	if(first >= second && first >= third) count += 2*second + 2*third;
-	else if(second >= first && second >= third) count += 2*first + 2*third;
-	else count += 2*first + 2*second;
-	return count;
+	arr[1] = strval(strleft(text, pos));
+	arr[2] = strval(strright(text, len - pos - 1));
+	return arr;
 }
