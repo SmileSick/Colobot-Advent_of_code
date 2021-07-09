@@ -1,25 +1,26 @@
-extern void object::AoD_2015_01()
+extern void object::AoD2015_1()
 {
 	ipf(10000);
-	int part1 = 0;
-	int part2;
+	int p1 = 0;
+	int p2;
 	bool check = true;
-	file handle();
+	file handle = new file();
 	handle.open("input.txt", "r");
 	string text = handle.readln();
 	handle.close();
+	handle = null;
 	int count = strlen(text);
-	string temptext;
+	string temp;
 	for(int i = 0; i < count; i++)
 	{
-		temptext = strmid(text, i, 1);
-		if(temptext == "(") part1++;
-		if(temptext == ")") part1--;
-		if(part1 == -1 && check)
+		temp = strmid(text, i, 1);
+		if(temp == "(") p1++;
+		else p1--;
+		if(p1 == -1 && check)
 		{
-			part2 = i + 1;
+			p2 = i + 1;
 			check = false;
 		}
 	}
-	message("Part1: " + part1 + ", Part2: " + part2);
+	message("Part: " + p1 + ", Part: " + p2);
 }
