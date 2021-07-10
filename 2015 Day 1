@@ -1,4 +1,4 @@
-extern void object::AoD2015_1()
+extern void object::AoD_2015_1()
 {
 	ipf(10000);
 	int p1 = 0;
