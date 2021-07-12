@@ -2,47 +2,40 @@ extern void object::AoD_2015_02()
 {
 	ipf(10000);
 	file handle();
-	handle.open("input.txt", "r");
 	string text;
-	int part1 = 0;
-	int part2 = 0;
+	int p1 = 0;
+	int p2 = 0;
 	int arr[3];
+	handle.open("input.txt", "r");
 	while(!handle.eof())
 	{
 		text = handle.readln();
 		arr = cut(text);
-		part1 += 2*(arr[0]*arr[1] + arr[0]*arr[2] + arr[1]*arr[2]);
-		part2 += arr[0]*arr[1]*arr[2];
-		if(arr[0] >= arr[1] && arr[0] >= arr[2])
-		{
-			part1 += arr[1]*arr[2];
-			part2 += 2*(arr[1] + arr[2]);
-		}
-		else if(arr[1] >= arr[0] && arr[1] >= arr[2])
-		{
-			part1 += arr[0]*arr[2];
-			part2 += 2*(arr[0] + arr[2]);
-		}
-		else
-		{
-			part1 += arr[0]*arr[1];
-			part2 += 2*(arr[0] + arr[1]);
-		}
+		p1 += 3*arr[0]*arr[1] + 2*(arr[0]*arr[2] + arr[2]*arr[1]);
+		p2 += arr[0]*arr[1]*arr[2] + 2*(arr[1] + arr[0]);
 	}
 	handle.close();
-	message("Part1: " + part1 + ", part2: " + part2);
+	message("Pat1: " + p1 + ", Part2: " + p2);
 }
 
 int []cut(string text)
 {
-	int arr[3];
-	int len = strlen(text);
-	int pos = strfind(text, "x");
-	arr[0] = strval(strleft(text, pos));
-	text = strright(text, len - pos - 1);
-	pos = strfind(text, "x");
-	len = strlen(text);
-	arr[1] = strval(strleft(text, pos));
-	arr[2] = strval(strright(text, len - pos - 1));
+	int arr[3], pos;
+	for(int i = 0; i < 3; i++)
+	{
+		arr[i] = strval(text);
+		if(i == 2) break;
+		pos = strfind(text, "x");
+		text = strmid(text, pos + 1);
+	}
+	for(int i = 0; i < 2; i++)
+	{
+		if(arr[i] > arr[i + 1])
+		{
+			pos = arr[i];
+			arr[i] = arr[i + 1];
+			arr[i + 1] = pos;
+		}
+	}
 	return arr;
 }
