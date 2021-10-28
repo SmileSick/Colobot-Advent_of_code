@@ -1,70 +1,39 @@
-public class point2d
+extern void object::AoC_2015_3()
 {
-	int x, y;
-	void point2d(int x, int y)
-	{
-		this.x = x;
-		this.y = y;
-	}
-}
-public class perso
-{
-	point2d pos = new point2d(0, 0);
-	
-	void up()
-	{
-		pos.y++;
-	}
-	void down()
-	{
-		pos.y--;
-	}
-	void right()
-	{
-		pos.x++;
-	}
-	void left()
-	{
-		pos.x--;
-	}
-}
-extern void object::AoD_2015_03()
-{
-	int num = 2; // change for number of people
 	ipf(10000);
-	file handle();
+	int p1 = checking(1);
+	int p2 = checking(2);
+	message("Part 1: " + p1 + ", Part 2: " + p2);
+}
+
+int checking(int num)
+{
+	int count = 1;
+	file handle = new file();
 	handle.open("input.txt", "r");
 	string text = handle.readln();
 	handle.close();
-	perso men[];
+	point men[];
 	for(int i = 0; i < num; i++)
 	{
-		men[i] = new perso();
+		men[i] = new point(0, 0, 0);
 	}
-	point2d arr[];
-	int mass = 0;
-	arr[mass++] = new point2d(men[0].pos.x, men[0].pos.y);
+	string array = "x0y0;";
 	int counttext = strlen(text);
-	string temptext;
+	string temp;
 	for(int i = 0; i < counttext; i++)
 	{
-		temptext = strmid(text, i, 1);
-		if(temptext == "<") men[i%num].left();
-		else if(temptext == ">") men[i%num].right();
-		else if(temptext == "^") men[i%num].up();
-		else if(temptext == "v") men[i%num].down();
-		if(!find(men[i%num].pos, arr)) arr[mass++] = new point2d(men[i%num].pos.x, men[i%num].pos.y);
+		temp = strmid(text, i, 1);
+		if(temp == "<") men[i%num].x--;
+		else if(temp == ">") men[i%num].x++;
+		else if(temp == "^") men[i%num].y++;
+		else men[i%num].y--;
+		temp = "x" + men[i%num].x + "y" + men[i%num].y + ";";
+		if(strfind(array, temp) == nan)
+		{
+			array += temp;
+			count++;
+		}
 	}
-	message(sizeof(arr));
-}
-
-bool find(point2d pos, point2d []arr)
-{
-	ipf(10000);
-	int size = sizeof(arr);
-	for(int i = 0; i < size; i++)
-	{
-		if(pos.x == arr[i].x && pos.y == arr[i].y) return true;
-	}
-	return false;
+	return count;
 }
